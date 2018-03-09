@@ -1,0 +1,12 @@
+1.Izveidot datubāzi (Json)
+	Paklāji
+	Lietotāji
+	pasūtijumi
+
+2.Lapas dizaina izveide
+	Produktu izvietošana lapā
+	Meklēšana
+	Reģistrācija
+	Lietotāja profils
+
+	
