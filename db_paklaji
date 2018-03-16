@@ -1,4 +1,4 @@
-db.inventory2.insertMany([{ id: 1, name: "ACTUT", size: 3, uom: "m", price:32.13 , currency: "euro", material: "sintetika", item_number: 20, url:"https://images-na.ssl-images-amazon.com/images/I/5107%2BpFjCML._SX425_.jpg"},
+db.OrdersSchema.insertMany([{ id: 1, name: "ACTUT", size: 3, uom: "m", price:32.13 , currency: "euro", material: "sintetika", item_number: 20, url:"https://images-na.ssl-images-amazon.com/images/I/5107%2BpFjCML._SX425_.jpg"},
 { id: 2, name: "OJIA Deluxe", size: 2, uom: "m", price:30.23 , currency: "euro", material: "polipropilens", item_number: 20, url:"https://images-na.ssl-images-amazon.com/images/I/61qb0BIIyGL._AC_US240_.jpg"},
 { id: 3, name: "LOCHAS", size: 2.5, uom: "m", price:29.11 , currency: "euro", material: "sintetika", item_number: 20, url:"https://images-na.ssl-images-amazon.com/images/I/61rNZBbRzmL._AC_US240_.jpg"},
 { id: 4, name: "Ottosman", size: 3.5, uom: "m", price:39.12 , currency: "euro", material: "sintetika", item_number: 20, url:"https://images-na.ssl-images-amazon.com/images/I/51XRENa42UL._AC_US240_.jpg"},
