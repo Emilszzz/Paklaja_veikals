@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express()
 mongoose = require('mongoose'),
-mongoUrl = 'mongodb://localhost:27017/inventory2';
+mongoUrl = 'mongodb://localhost:27017/veikals';
 var users = require('./controllers/users.js')
 
 app.get('/', function (req, res) {

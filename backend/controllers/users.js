@@ -1,24 +1,15 @@
 var mongoose = require('mongoose'),
 user = require('../models/users.js'); //Mongoose automatically looks for the plural version of your model name.
 
-exports.findAll = function(req, res) {
+
+
+
+ exports.findAll = function(req, res) {
   user.find({},function(err, results) {
     return res.send(results);
   });
 };
-exports.test = function(req, res) {
-  var u = {id: 3,
-  user: "a",
-  name: "b",
-  password: "ooo",
- email:"ooo",
- address: "ooo",
- country: "ooo",};
-  user.create(u, function (err, small) {
-    if (err) return handleError(err);
-    return res.send(small);
-  });
-};
+ 
 
 exports.add = function(req, res) {
   console.log("body --------------------------------------------------");
