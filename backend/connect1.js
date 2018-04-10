@@ -1,10 +1,25 @@
 var express = require('express')
 var app = express()
 mongoose = require('mongoose'),
-mongoUrl = 'mongodb://localhost:27017/veikals';
+mongoUrl = 'mongodb://localhost:27017/usersdb';
 var users = require('./controllers/users.js')
 
-app.get('/', function (req, res) {
+
+var allowCrossDomain = function(req, res, next) {
+    if(req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+    }
+    //res.header('Access-Control-Allow-Origin', 'localhost:3004');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+app.use(allowCrossDomain);
+
+
+app.get('/paklajsNotes', function (req, res) {
+
   users.findAll(req, res);
 })
 app.get('/test', function (req, res) {
