@@ -19,10 +19,13 @@ exports.add = function(req, res) {
 
     var userObj = {};
       userObj.id= Math.floor(Math.random() * 100000);
-    userObj.user= req.body.user.user;
-    //long version
-       userObj.name= req.body.user.name;
-   userObj.password= req.body.user.password;
+      if(req.body.user.user) {     userObj.user= req.body.user.user;  }
+    else {userObj.user = 'defaultUserName';}
+    if(req.body.user.name) {     userObj.name= req.body.user.name;  }
+  else {userObj.name = 'defaultName';}
+  if(req.body.user.password) {     userObj.name= req.body.user.password;  }
+  else {userObj.password = 'pass123';}
+ 
      userObj.email= req.body.user.email;
        userObj.adress= req.body.user.adress;
        userObj.country= req.body.user.country;
