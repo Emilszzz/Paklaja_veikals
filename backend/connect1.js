@@ -4,6 +4,8 @@ mongoose = require('mongoose'),
 mongoUrl = 'mongodb://localhost:27017/usersdb';
 var users = require('./controllers/users.js')
 
+var bodyParser = require('body-parser');
+
 
 var allowCrossDomain = function(req, res, next) {
     if(req.headers.origin) {
@@ -16,15 +18,19 @@ var allowCrossDomain = function(req, res, next) {
     next();
 }
 app.use(allowCrossDomain);
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(allowCrossDomain);
+
+require('./models/users');
+require('./routes')(app);
 
 
-app.get('/paklajsNotes', function (req, res) {
+app.get('/userNotes', function (req, res) {
 
   users.findAll(req, res);
 })
-app.get('/test', function (req, res) {
-  users.test(req, res);
-})
+
 app.listen(3000)
 mongoose.connect(mongoUrl);
 var db = mongoose.connection;

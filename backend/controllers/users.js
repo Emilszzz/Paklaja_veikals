@@ -1,61 +1,57 @@
 var mongoose = require('mongoose'),
 user = require('../models/users.js'); //Mongoose automatically looks for the plural version of your model name.
+mongoose.connect('mongodb://localhost:27017/usersdb');
 
 
 
 exports.findAll = function(req, res) {
   user.find({},function(err, results) {
-    return res.send(results);
-  });
-};
-exports.test = function(req, res) {
-  var u = {id: 3,
-  user: "a",
-  name: "b",
-  password: "ooo",
- email:"ooo",
- address: "ooo",
- country: "ooo",};
-  user.create(u, function (err, small) {
-    if (err) return handleError(err);
-    return res.send(small);
+     console.log(results);
+    return res.send({user:results});
   });
 };
 
+
+
 exports.add = function(req, res) {
   console.log("body --------------------------------------------------");
-  console.log(req.body);
-  if(req.body.username && req.body.password){
-    var userObj = new user;
-    userObj.user= req.body.username;
+  console.log(req.body.user);
+
+    var userObj = {};
+      userObj.id= Math.floor(Math.random() * 100000);
+    userObj.user= req.body.user.user;
     //long version
-    if(req.body.name) { userObj.name = req.body.name;  }
-    else {userObj.name = 'defaultName';}
+       userObj.name= req.body.user.name;
+   userObj.password= req.body.user.password;
+     userObj.email= req.body.user.email;
+       userObj.adress= req.body.user.adress;
+       userObj.country= req.body.user.country;
+
+
     //short version, but still might cause problems with "falsy" values
-    userObj.password = req.body.password || "pass123";//obvious security flaw is obvious
-    userObj.profession = req.body.profession || "miner";
-    userObj.ledit= new Date().valueOf();
 
     console.log(userObj);
     //user.insert(userObj);
     //^ would work if no id is needed back. We need it, so we are using save with a callback
     user.create(userObj, function (err, small) {
-      if (err) return handleError(err);
+      if (err){
+ 		return handleError(err);}
       return res.send(userObj);
     });
-  }else{
-    //console.log("Wrong user info found in request:     ");
-    //console.log(req);
-    return res.send("Wrong user info found in request!");
-  }
+
 };
 
 
 exports.update = function(req, res) {
   console.log("update");
-  console.log(req.body);
-  var findingQuery = {'_id':req.body.id};
-  var newvalues = {$set: {name: "NewDwarf", profession: "Baker", user:"dwarf12"}};// will set specific fields to given values
+  console.log(req.params);
+  var findingQuery = {'id':req.params.id};
+  var newvalues = {$set: { user: req.params.user,
+   name: req.params.name,
+   password: req.params.password,
+   email: req.params.email,
+   adress: req.params.adress,
+   country: req.params.country}};// will set specific fields to given values
   user.updateOne(findingQuery, newvalues, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");
@@ -64,24 +60,26 @@ exports.update = function(req, res) {
 
 
 exports.delete = function(req, res) {
-  if(req.body.id){
-    var query = {'_id': req.body.id};
+  console.log(" delete");
+  console.log(req.params);
+
+    var query = {'id': req.params.id};
     user.remove(query ,function(err, results) {
       //console.log(results);
       return res.send(results);
     });
-  }else{
-      return res.send("Wrong user info found in request!");
-  }
+
 };
-
-
-exports.findById = function(req, res) {
+exports.findbyid = function(req, res) {
   console.log(" Find by Id");
-  console.log(req.body);
-  var id = req.body.id;
-  user.find({'_id': id},function(err, results){
+  console.log(req.params);
+  console.log('***********************');
+  console.log(req.params.id);
+  var id = req.params.id || '1';
+  user.findOne({'id': id},function(err, results){
     console.log(results);
-    return res.send(results);
+	let temp = {};
+	temp.user = results;
+    return res.send(temp);
   });
 };
